@@ -1,13 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {ExampleReplicant} from '../types/schemas';
+import {useReplicant} from './replicant';
 
 export function Index() {
-	let [data, setData] = useState<ExampleReplicant | undefined>(undefined);
-	useEffect(() => {
-		nodecg.readReplicant('exampleReplicant', setData);
-	});
+	let data = useReplicant<ExampleReplicant>('exampleReplicant');
 	if (data === undefined) {
-		return <p>None</p>;
+		return <p>Loading...</p>;
 	}
 	return (
 		<>
