@@ -5,10 +5,15 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export interface ExampleReplicant {
-	name: string;
-	/**
-	 * Age in years
-	 */
-	age: number;
+export interface MapBan {
+	teamA: string;
+	teamB: string;
+	bestOf: number;
+	map1?: string;
+	map2?: string;
+	map3?: string;
+	map4?: string;
+	map5?: string;
+	map6?: string;
+	map7?: string;
 }

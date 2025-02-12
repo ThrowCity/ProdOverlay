@@ -1,9 +1,9 @@
 import React from 'react';
-import {ExampleReplicant} from '../types/schemas';
+import {MapBan} from '../types/schemas';
 import {useReplicant} from './replicant';
 
 export function Prod() {
-	let [data, setData, updateData] = useReplicant<ExampleReplicant>('exampleReplicant');
+	let [data, setData, updateData] = useReplicant<MapBan>('mapBan');
 
 	if (!data) {
 		return <p>Loading...</p>;
@@ -16,10 +16,10 @@ export function Prod() {
 				setData((d) => {
 					return {
 						...d,
-						name: e.target.value,
+						teamA: e.target.value,
 					}
 				})
-			}} value={data.name}></input>
+			}} value={data.teamA}></input>
 			<button onClick={updateData}>Update</button>
 		</>
 	)

@@ -1,15 +1,15 @@
 import React from 'react';
-import {ExampleReplicant} from '../types/schemas';
 import {useReplicant} from './replicant';
+import {MapBan} from '../types/schemas';
 
 export function Index() {
-	let data = useReplicant<ExampleReplicant>('exampleReplicant');
+	let data = useReplicant<MapBan>('mapBan');
 	if (data === undefined) {
 		return <p>Loading...</p>;
 	}
 	return (
 		<>
-			<p>{data.name}</p>
+			<p>{data.teamA}</p>
 		</>
 	);
 }

@@ -1,0 +1,45 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": {
+		"teamA": {
+			"type": "string",
+			"default": "Team A"
+		},
+		"teamB": {
+			"type": "string",
+			"default": "Team B"
+		},
+		"bestOf": {
+			"type": "integer",
+			"default": 3
+		},
+		"map1": {
+			"type": "string"
+		},
+		"map2": {
+			"type": "string"
+		},
+		"map3": {
+			"type": "string"
+		},
+		"map4": {
+			"type": "string"
+		},
+		"map5": {
+			"type": "string"
+		},
+		"map6": {
+			"type": "string"
+		},
+		"map7": {
+			"type": "string"
+		}
+	},
+	"additionalProperties": false,
+	"required": ["teamA", "teamB", "bestOf"],
+	"default": {
+		"name": "Hello world!",
+		"age": 0
+	}
+}
