@@ -1,6 +1,6 @@
 import React from 'react';
-import {useReplicant} from './replicant';
-import {MapBan} from '../types/schemas';
+import {useReplicant} from '../replicant';
+import {MapBan} from '../../types/schemas';
 
 import { Ban } from './components/Ban';
 

@@ -31,7 +31,7 @@
     ],
     "graphics": [
       {
-        "file": "index.html",
+        "file": "veto/index.html",
         "width": 1920,
         "height": 1080,
         "singleInstance": false
