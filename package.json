@@ -24,7 +24,7 @@
       {
         "name": "prod",
         "title": "Production",
-        "width": 2,
+        "width": 3,
         "file": "prod.html",
         "headerColor": "#525F78"
       }

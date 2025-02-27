@@ -16,4 +16,9 @@ export interface MapBan {
 	map5?: string;
 	map6?: string;
 	map7?: string;
+	side1?: string;
+	side2?: string;
+	side3?: string;
+	side4?: string;
+	side5?: string;
 }

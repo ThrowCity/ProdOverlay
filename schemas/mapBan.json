@@ -34,12 +34,28 @@
 		},
 		"map7": {
 			"type": "string"
+		},
+		"side1": {
+			"type": "string"
+		},
+		"side2": {
+			"type": "string"
+		},
+		"side3": {
+			"type": "string"
+		},
+		"side4": {
+			"type": "string"
+		},
+		"side5": {
+			"type": "string"
 		}
 	},
 	"additionalProperties": false,
 	"required": ["teamA", "teamB", "bestOf"],
 	"default": {
-		"name": "Hello world!",
-		"age": 0
+		"teamA": "TMA",
+		"teamB": "TMB",
+		"bestOf": 3
 	}
 }
