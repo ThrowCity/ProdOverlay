@@ -4,7 +4,7 @@ import {MapBan} from '../../types/schemas';
 
 import { Ban } from './components/Ban';
 
-import './styles.css';
+import './veto.css';
 
 import { Pick } from './components/Pick';
 
@@ -74,7 +74,7 @@ function resolveSide(team: string, side?: string): string {
 	return '';
 }
 
-export function Index() {
+export function Veto() {
 	let data = useReplicant<MapBan>('mapBan');
 
 	if (data === undefined) {
