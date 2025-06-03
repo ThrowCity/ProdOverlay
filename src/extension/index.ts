@@ -11,6 +11,7 @@ module.exports = function (nodecg: NodeCG.ServerAPI) {
 			teamA: "Team A",
 			teamB: "Team B",
 			bestOf: 3,
+			doubleABan: false,
 		}
 	}) as unknown as NodeCG.ServerReplicantWithSchemaDefault<MapBan>;
 };

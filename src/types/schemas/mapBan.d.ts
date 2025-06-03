@@ -9,6 +9,7 @@ export interface MapBan {
 	teamA: string;
 	teamB: string;
 	bestOf: number;
+	doubleABan: boolean;
 	map1?: string;
 	map2?: string;
 	map3?: string;

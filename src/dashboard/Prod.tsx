@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {MapBan} from '../types/schemas';
 import {useReplicant} from './replicant';
 
@@ -31,6 +31,7 @@ function capitalize(s: string): string {
 
 export function Prod() {
 	let [data, setData, updateData] = useReplicant<MapBan>('mapBan');
+	let [delay, setDelay] = useState(1000);
 
 	if (!data) {
 		return <p>Loading...</p>;
@@ -92,6 +93,73 @@ export function Prod() {
 		];
 	}
 
+	const buildSequence = (): { key: keyof MapBan; value: string | number | boolean | undefined; extraKey: keyof MapBan | undefined; extraValue: string | number | boolean | undefined }[] => {
+		const steps: { key: keyof MapBan; value: string | number | boolean | undefined; extraKey: keyof MapBan | undefined; extraValue: string | number | boolean | undefined }[] = [];
+		rounds.forEach((round) => {
+			if (round.sideField) {
+				steps.push({
+					key: round.mapField,
+					value: data[round.mapField],
+					extraKey: round.sideField,
+					extraValue: data[round.sideField],
+				});
+			} else {
+				steps.push({
+					key: round.mapField,
+					value: data[round.mapField],
+					extraKey: undefined,
+					extraValue: undefined,
+				});
+			}
+		});
+		return steps;
+	};
+
+	const runSequence = () => {
+		const rep = nodecg.Replicant<MapBan>('mapBan');
+
+		const base: MapBan = {
+			...data,
+			map1: undefined,
+			map2: undefined,
+			map3: undefined,
+			map4: undefined,
+			map5: undefined,
+			map6: undefined,
+			map7: undefined,
+			side1: undefined,
+			side2: undefined,
+			side3: undefined,
+			side4: undefined,
+			side5: undefined,
+		};
+
+		rep.value = base;
+		setData(base);
+		const sequence = buildSequence();
+
+		sequence.forEach((step, idx) => {
+			setTimeout(() => {
+				const current = rep.value || { ...base };
+
+				const updated: MapBan = {
+					...current,
+					[step.key]: step.value,
+				};
+
+				if (step.extraKey) {
+					let definitelyKnownAndNotUndefinedKeyOfTheStructureWeAreInteractingWithBecauseJavascriptIsTooDumbToRealizeWeAlreadyCheckedThatTheGivenKeyExistsAndIsNotUndefinedAndIsAValidKeyOfTheObjectSoTheTypeOfTheValueIsNotNever: keyof MapBan = step.extraKey;
+					const fuckJavascriptTwiceInTheAssForMakingMeCastThisVariableToNeverWhichMakesNoSenseBecauseItDefinitelyExistsAndTheFieldAlsoIsGuranteedKnownAtCompileTimeToExistSoTheValueShouldBeAString = step.extraValue as never;
+					updated[definitelyKnownAndNotUndefinedKeyOfTheStructureWeAreInteractingWithBecauseJavascriptIsTooDumbToRealizeWeAlreadyCheckedThatTheGivenKeyExistsAndIsNotUndefinedAndIsAValidKeyOfTheObjectSoTheTypeOfTheValueIsNotNever] = fuckJavascriptTwiceInTheAssForMakingMeCastThisVariableToNeverWhichMakesNoSenseBecauseItDefinitelyExistsAndTheFieldAlsoIsGuranteedKnownAtCompileTimeToExistSoTheValueShouldBeAString;
+				}
+
+				rep.value = updated;
+
+				setData(updated);
+			}, delay * (idx + 1));
+		});
+	};
+
 	return (
 		<div style={{ padding: '1rem' }}>
 			{/* Teams */}
@@ -149,6 +217,10 @@ export function Prod() {
 				))}
 			</div>
 
+			<div style={{ marginTop: '1rem' }}>
+				<label>Team A double bans:&nbsp;</label>
+				<input type="checkbox" checked={data.doubleABan} onChange={() => setData((prev) => ({ ...prev, doubleABan: !prev.doubleABan }))} />
+			</div>
 			<hr />
 
 			{/* Rounds */}
@@ -161,12 +233,13 @@ export function Prod() {
 						<label>
 							Map:&nbsp;
 							<select
-								value={data[round.mapField] || ''}
-								onChange={(e) =>
-									setData((prev) => ({
-										...prev,
-										[round.mapField]: e.target.value || undefined
-									}))
+								value={data[round.mapField] as string | undefined || ''}
+								onChange={(e) => {
+										setData((prev) => ({
+											...prev,
+											[round.mapField]: e.target.value || undefined
+										}));
+									}
 								}
 							>
 								{mapOptions.map((map) => (
@@ -182,12 +255,13 @@ export function Prod() {
 							<label>
 								Side:&nbsp;
 								<select
-									value={data[round.sideField] || ''}
-									onChange={(e) =>
-										setData((prev) => ({
-											...prev,
-											[round.sideField as string]: e.target.value || undefined
-										}))
+									value={data[round.sideField] as string | undefined || ''}
+									onChange={(e) => {
+											setData((prev) => ({
+												...prev,
+												[round.sideField as string]: e.target.value || undefined
+											}));
+										}
 									}
 								>
 									{sideOptions.map((side) => (
@@ -203,7 +277,15 @@ export function Prod() {
 			))}
 
 			{/* Update Button */}
+			<input
+				type="number"
+				value={delay}
+				onChange={(e) =>
+					setDelay(parseInt(e.target.value))
+				}
+			/>
 			<button onClick={updateData}>Update</button>
+			<button onClick={runSequence}>Start Sequence</button>
 			<button onClick={resetData}>Reset</button>
 		</div>
 	);

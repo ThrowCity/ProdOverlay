@@ -2,5 +2,8 @@
   "extends": "@parcel/config-default",
   "validators": {
     "*.{ts,tsx}": ["@parcel/validator-typescript"]
+  },
+  "transformers": {
+    "*.mp4": ["@parcel/transformer-raw"]
   }
 }
